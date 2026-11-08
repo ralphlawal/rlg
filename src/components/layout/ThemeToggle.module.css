@@ -1,0 +1,17 @@
+.toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}
+.icon {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--t-slow) var(--ease-out);
+}
+.toggle[aria-pressed="true"] .icon { transform: rotate(180deg); }

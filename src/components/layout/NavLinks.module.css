@@ -1,0 +1,38 @@
+.bar { list-style: none; display: flex; gap: 28px; }
+
+.bar .link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+.bar .link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  height: 1px;
+  width: 0;
+  background: currentColor;
+  transition: width var(--t-base) var(--ease);
+}
+.bar .link:hover::after,
+.bar .link:focus-visible::after,
+.bar .link[aria-current="page"]::after { width: 100%; }
+
+.menu { list-style: none; display: grid; gap: 4px; }
+.menu .link {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  text-decoration: none;
+  font-size: clamp(2.25rem, 11vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-stretch: 88%;
+  line-height: 1;
+}
+.menu .link[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.12em; }

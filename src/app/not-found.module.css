@@ -1,0 +1,27 @@
+.page { padding-block: 64px 120px; }
+.sheet {
+  position: relative;
+  min-height: 60vh;
+  padding: clamp(24px, 5vw, 64px);
+  border: 1px solid var(--fg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+.block {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  display: grid;
+  border: 1px solid var(--fg);
+  background: var(--bg);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.block span { padding: 6px 12px; }
+.block span + span { border-top: 1px solid var(--fg); }
+.links { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; margin-bottom: 96px; }
+@media (min-width: 600px) { .links { margin-bottom: 0; } }

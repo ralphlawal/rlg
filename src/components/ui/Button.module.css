@@ -1,0 +1,35 @@
+.primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: box-shadow var(--t-fast) var(--ease);
+}
+.primary:hover { box-shadow: inset 0 0 0 1px var(--bg); text-decoration: none; }
+.primary:disabled, .primary[aria-disabled="true"] { opacity: 0.55; cursor: progress; }
+
+.sm { min-height: 44px; padding: 0 16px; font-size: 0.9375rem; }
+
+/* Text link with a measured underline that retracts on hover. */
+.text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  font-weight: 500;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 calc(100% - 10px) / 100% 1px no-repeat;
+  transition: background-size var(--t-base) var(--ease);
+}
+.text:hover, .text:focus-visible { background-size: 0 1px; background-position: 100% calc(100% - 10px); }
+
+.arrow { display: inline-block; transition: transform var(--t-base) var(--ease); }
+.primary:hover .arrow, .primary:focus-visible .arrow, .text:hover .arrow, .text:focus-visible .arrow { transform: translateX(4px); }

@@ -1,0 +1,5 @@
+.nav { margin-bottom: 32px; }
+.nav ol { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-3); }
+.nav li + li::before { content: "/"; margin: 0 8px 0 4px; }
+.nav a { display: inline-flex; align-items: center; min-height: 32px; color: var(--fg); text-decoration: none; }
+.nav a:hover { text-decoration: underline; }

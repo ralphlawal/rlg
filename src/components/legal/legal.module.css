@@ -1,0 +1,13 @@
+.pending { margin-bottom: 24px; padding: 14px 18px; border: 1px dashed var(--fg); font-weight: 500; max-width: 40em; }
+.info { margin: 0 0 48px; max-width: 40em; border-top: 1px solid var(--fg); }
+.info > div { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 600px) { .info > div { grid-template-columns: 11em 1fr; gap: 16px; } }
+.info dd { overflow-wrap: anywhere; }
+.info dt { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-3); padding-top: 0.25em; }
+.info dd { margin: 0; }
+.page { padding-bottom: 120px; }
+.toc { list-style: none; display: grid; gap: 4px; margin: 0 0 48px; font-size: 0.9375rem; }
+.toc a { display: inline-flex; min-height: 32px; align-items: center; }
+.table { width: 100%; max-width: 46em; border-collapse: collapse; margin-top: 12px; font-size: 0.9375rem; }
+.table th, .table td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); }
+.table th { font-family: var(--mono); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-3); }

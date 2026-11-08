@@ -1,0 +1,68 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  -webkit-backdrop-filter: saturate(1.2) blur(8px);
+  backdrop-filter: saturate(1.2) blur(8px);
+  border-bottom: 1px solid transparent;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: var(--header-h);
+}
+
+.brand {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin-left: -6px;
+}
+
+/* Phones and tablets: the icon. Desktop: the full logo, which hands over to the icon on scroll. */
+.full { display: none !important; }
+@media (min-width: 1024px) {
+  .full { display: inline-block !important; }
+  .mark { display: none !important; }
+}
+
+/* Scroll-driven, no JavaScript: hairline appears and the full logo becomes the icon. */
+@supports (animation-timeline: scroll()) {
+  .header {
+    animation: header-line linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 48px;
+  }
+  @media (min-width: 1024px) {
+    .mark {
+      display: inline-block !important;
+      position: absolute;
+      left: 6px;
+      animation: fade-in linear both;
+      animation-timeline: scroll(root);
+      animation-range: 24px 72px;
+    }
+    .full {
+      animation: fade-out linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 48px;
+    }
+  }
+}
+@keyframes header-line { to { border-bottom-color: var(--line); } }
+@keyframes fade-out { to { opacity: 0; visibility: hidden; } }
+@keyframes fade-in { from { opacity: 0; visibility: hidden; } to { opacity: 1; visibility: visible; } }
+
+.nav { display: none; margin-left: auto; }
+@media (min-width: 1024px) { .nav { display: block; } }
+
+.tools { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+@media (min-width: 1024px) { .tools { margin-left: 12px; } }
+
+.cta { display: none !important; }
+@media (min-width: 600px) { .cta { display: inline-flex !important; } }

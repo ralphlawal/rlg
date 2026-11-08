@@ -1,0 +1,96 @@
+.form { display: grid; gap: 28px; max-width: 46rem; }
+
+.row2 { display: grid; gap: 28px; }
+@media (min-width: 600px) { .row2 { grid-template-columns: 1fr 1fr; gap: var(--gutter); } }
+
+.field { display: grid; gap: 8px; min-width: 0; align-content: start; }
+.field label, .fieldset legend { font-weight: 600; }
+.optional { margin-left: 6px; font-family: var(--mono); font-size: 0.6875rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-3); }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: var(--surface);
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  appearance: none;
+}
+.field textarea { min-height: 180px; resize: vertical; }
+.field select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--fg) 50%), linear-gradient(135deg, var(--fg) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+}
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible { outline: none; box-shadow: none; border: 2px solid var(--fg); padding: 11px 13px; }
+.field select:focus-visible { padding-right: 39px; }
+.field [aria-invalid="true"] { border: 2px solid var(--fg); padding: 11px 13px; }
+
+.help { font-size: 0.875rem; color: var(--fg-2); }
+
+.fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: grid; gap: 10px; }
+.fieldset legend { padding: 0; margin-bottom: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; display: inline-flex; }
+.chip input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.chip span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--line-strong); font-size: 0.9375rem; }
+.chip input:hover + span { border-color: var(--fg); }
+.chip input:checked + span { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.chip input:focus-visible + span { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+.error { display: flex; align-items: flex-start; gap: 8px; font-weight: 600; font-size: 0.9375rem; }
+.errorIcon {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+.summary { padding: 20px 24px; border: 1px solid var(--fg); border-top-width: 4px; }
+.summary:focus { outline: none; }
+.summary:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+.summaryTitle { font-size: 1.125rem; margin-bottom: 8px; }
+.summary ul { list-style: none; display: grid; gap: 6px; }
+.summary a { font-weight: 500; }
+.mailFallback { display: inline-flex; min-height: 44px; align-items: center; }
+
+.sketch { padding: 20px; background: var(--surface); }
+.sketchHead { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.sketch pre { margin: 12px 0 0; white-space: pre-wrap; font-family: var(--mono); font-size: 0.8125rem; line-height: 1.6; color: var(--fg-2); max-height: 22rem; overflow: auto; }
+.remove { min-height: 44px; padding: 0 12px; border: 1px solid var(--line-strong); background: none; cursor: pointer; }
+
+.submitRow { display: grid; gap: 16px; }
+.submit {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 24px;
+  border: 1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 500;
+  cursor: pointer;
+}
+.submit:hover { box-shadow: inset 0 0 0 1px var(--bg); }
+.submit:disabled { opacity: 0.6; cursor: progress; }
+.privacy { font-size: 0.875rem; color: var(--fg-2); max-width: 38em; }
+
+/* Honeypot: off-screen, not display:none (some bots skip hidden fields). */
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }

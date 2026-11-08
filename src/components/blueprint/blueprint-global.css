@@ -1,0 +1,21 @@
+/* Outline real structure while the drawing is open. Labels come from data-el attributes. */
+html[data-drawing] :is(header, nav, main > section, footer, h1, h2) {
+  outline: 1px dashed var(--fg-3);
+  outline-offset: -1px;
+}
+html[data-drawing] [data-el] { position: relative; }
+html[data-drawing] [data-el]::before {
+  content: attr(data-el);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 51;
+  padding: 4px 6px;
+  background: var(--fg);
+  color: var(--bg);
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+html[data-drawing] header[data-el] { position: sticky; }
+

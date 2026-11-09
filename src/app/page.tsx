@@ -53,9 +53,9 @@ export default function Home() {
         <h2 id="what-title" className="display-m reveal">
           One team from the first sketch to the version people rely on.
         </h2>
-        <ul className={styles.services}>
+        <ul className={`${styles.services} stagger`}>
           {whatWeDo.map((s) => (
-            <li key={s.title}>
+            <li key={s.title} className="reveal">
               <h3>
                 <Link href={s.href}>{s.title}</Link>
               </h3>
@@ -77,9 +77,9 @@ export default function Home() {
         <p className="lead reveal" style={{ marginTop: 24 }}>
           Every project includes the work that decides whether a product can be trusted, whatever its size.
         </p>
-        <ul className={styles.services}>
+        <ul className={`${styles.services} stagger`}>
           {capabilities.map((c) => (
-            <li key={c.title}>
+            <li key={c.title} className="reveal">
               <h3>{c.title}</h3>
               <p>{c.text}</p>
             </li>
@@ -129,9 +129,9 @@ export default function Home() {
         <h2 id="approach-title" className="display-m reveal">
           Fewer surprises, because the hard questions come first.
         </h2>
-        <ol className={styles.stages}>
+        <ol className={`${styles.stages} stagger`}>
           {stages.map((s, i) => (
-            <li key={s.name}>
+            <li key={s.name} className="reveal">
               <span className="label">{String(i + 1).padStart(2, "0")}</span>
               <h3>{s.name}</h3>
               <p>{s.text}</p>

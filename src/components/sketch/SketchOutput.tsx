@@ -19,7 +19,8 @@ export function SketchOutput({
       <h3 id="sketch-out-title" className={styles.outTitle}>
         The parts it needs
       </h3>
-      <div className={styles.parts}>
+      {/* Keyed by content, so the outline visibly redraws whenever an answer changes. */}
+      <div className={styles.parts} key={[...result.clients, ...result.services].join("|")}>
         {result.clients.map((c) => (
           <span key={c} className={styles.node}>
             {c}

@@ -24,7 +24,7 @@ test("project enquiry: errors, then success with a reference", async ({ page, re
   await page.getByRole("button", { name: /send enquiry/i }).click();
 
   await expect(page).toHaveURL(/\/start\/received\?ref=RLG-\d{4}-[A-Z0-9]{4}&kind=project/);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Thank you. We have your enquiry.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Thank you. Your project is on our desk.");
   const sent = await (await request.get(`${MOCK}/last`)).json();
   expect(sent).toMatchObject({ name: "Aoife Byrne", email: "aoife@example.ie", services: "Mobile app", type: "Project enquiry" });
   expect(sent.message).toBe(message);

@@ -6,9 +6,9 @@ type Row = { key: string; num: string; title: string; detail?: string; to: strin
 /** Full-width rows that invert on hover/focus. Used for situations and client entries. */
 export function IndexList({ rows, label }: { rows: Row[]; label?: string }) {
   return (
-    <ol className={styles.index} aria-label={label}>
+    <ol className={`${styles.index} stagger`} aria-label={label}>
       {rows.map((row) => (
-        <li key={row.key}>
+        <li key={row.key} className="reveal">
           <Link href={row.href} className={styles.indexRow}>
             <span className={styles.indexNum}>{row.num}</span>
             <span className={styles.indexText}>

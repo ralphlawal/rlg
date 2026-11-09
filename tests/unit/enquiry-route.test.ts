@@ -18,6 +18,7 @@ beforeEach(() => {
   process.env.FORMSPREE_FORM_ID = "testform";
   delete process.env.FORMSPREE_ENDPOINT;
   delete process.env.TURNSTILE_SECRET_KEY;
+  delete process.env.RESEND_API_KEY;
   fetchMock = vi.fn();
   vi.stubGlobal("fetch", fetchMock);
   vi.spyOn(console, "error").mockImplementation(() => {});
@@ -25,6 +26,34 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe("POST /api/enquiry", () => {
+  it("emails the visitor a confirmation after a successful enquiry, and reports it", async () => {
+    process.env.RESEND_API_KEY = "test-key";
+    fetchMock.mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }));
+    const res = await POST(json(valid));
+    const data = await res.json();
+    expect(data.confirmation).toBe(true);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock.mock.calls[1][0]).toBe("https://api.resend.com/emails");
+    expect(JSON.parse(fetchMock.mock.calls[1][1].body).to).toEqual(["aoife@example.ie"]);
+  });
+
+  it("still succeeds if the confirmation email fails", async () => {
+    process.env.RESEND_API_KEY = "test-key";
+    fetchMock
+      .mockResolvedValueOnce(new Response(JSON.stringify({ ok: true }), { status: 200 }))
+      .mockResolvedValueOnce(new Response("{}", { status: 500 }));
+    const res = await POST(json(valid));
+    expect(res.status).toBe(200);
+    expect((await res.json()).confirmation).toBe(false);
+  });
+
+  it("never sends a confirmation when the enquiry itself fails", async () => {
+    process.env.RESEND_API_KEY = "test-key";
+    fetchMock.mockResolvedValue(new Response("{}", { status: 429 }));
+    await POST(json(valid));
+    expect(fetchMock.mock.calls.every(([u]) => !String(u).includes("resend"))).toBe(true);
+  });
+
   it("forwards a valid enquiry to Formspree and returns a reference", async () => {
     fetchMock.mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }));
     const res = await POST(json(valid));

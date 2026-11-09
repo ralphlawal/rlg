@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { formDataToObject, makeReference, toFormspreePayload, validateEnquiry, type FieldErrors } from "@/lib/enquiry";
-import { forwardToFormspree, verifyTurnstile } from "@/lib/enquiry-server";
+import { forwardToFormspree, sendConfirmation, verifyTurnstile } from "@/lib/enquiry-server";
 
 /**
  * POST /api/enquiry
@@ -11,7 +11,7 @@ import { forwardToFormspree, verifyTurnstile } from "@/lib/enquiry-server";
 const MIN_FILL_MS = 3000;
 
 type Outcome =
-  | { status: "ok"; reference: string; kind: "project" | "call" }
+  | { status: "ok"; reference: string; kind: "project" | "call"; confirmation?: boolean }
   | { status: "invalid"; errors: FieldErrors; kind: string }
   | { status: "error"; code: "spam-check" | "rate-limited" | "unavailable" | "not-configured"; kind: string };
 
@@ -55,7 +55,11 @@ export async function POST(request: Request) {
   if (!formId) return respond(wantsJson, { status: "error", code: "not-configured", kind });
   const reference = makeReference();
   const sent = await forwardToFormspree(formId, toFormspreePayload(result.data, reference));
-  if (sent.ok) return respond(wantsJson, { status: "ok", reference, kind });
+  if (sent.ok) {
+    // Instant confirmation to the visitor from hello@ (best effort; never blocks success).
+    const mail = await sendConfirmation(result.data.email, result.data.kind, result.data.name, reference);
+    return respond(wantsJson, { status: "ok", reference, kind, confirmation: mail === "sent" });
+  }
   if (sent.kind === "invalid") return respond(wantsJson, { status: "invalid", errors: sent.errors, kind });
   return respond(wantsJson, { status: "error", code: sent.kind === "rate-limited" ? "rate-limited" : "unavailable", kind });
 }
@@ -68,7 +72,7 @@ function respond(json: boolean, outcome: Outcome) {
   const base = outcome.kind === "call" ? "/start/call" : "/start";
   const target =
     outcome.status === "ok"
-      ? `/start/received?ref=${encodeURIComponent(outcome.reference)}&kind=${outcome.kind}`
+      ? `/start/received?ref=${encodeURIComponent(outcome.reference)}&kind=${outcome.kind}${outcome.confirmation ? "&c=1" : ""}`
       : outcome.status === "invalid"
         ? `${base}?error=invalid#enquiry`
         : `${base}?error=${outcome.code}#enquiry`;

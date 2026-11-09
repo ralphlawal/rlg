@@ -74,12 +74,12 @@ export function EnquiryForm({ initialServices = [], sketch, source = "start", se
         body: JSON.stringify(payload),
       });
       const data = (await res.json().catch(() => null)) as
-        | { status: "ok"; reference: string }
+        | { status: "ok"; reference: string; confirmation?: boolean }
         | { status: "invalid"; errors: FieldErrors }
         | { status: "error"; code: string }
         | null;
       if (data?.status === "ok") {
-        router.push(`/start/received?ref=${encodeURIComponent(data.reference)}&kind=project`);
+        router.push(`/start/received?ref=${encodeURIComponent(data.reference)}&kind=project${data.confirmation ? "&c=1" : ""}`);
         return;
       }
       setStatus("failed");

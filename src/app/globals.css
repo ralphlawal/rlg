@@ -176,3 +176,14 @@ main:focus { outline: none; }
 
 .table-wrap { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .table-wrap table { min-width: 34rem; }
+
+/* Lists rise in one item after another. Uses the same one-time .reveal observer; off with reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .stagger > .reveal:nth-child(2) { transition-delay: 70ms; }
+  .js .stagger > .reveal:nth-child(3) { transition-delay: 140ms; }
+  .js .stagger > .reveal:nth-child(4) { transition-delay: 210ms; }
+  .js .stagger > .reveal:nth-child(5) { transition-delay: 280ms; }
+  .js .stagger > .reveal:nth-child(6) { transition-delay: 350ms; }
+  .js .stagger > .reveal:nth-child(7) { transition-delay: 420ms; }
+  .js .stagger > .reveal:nth-child(n + 8) { transition-delay: 490ms; }
+}

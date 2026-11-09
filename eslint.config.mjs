@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Hidden product pages, kept locally for future use (not in Git).
     "preserved/**",
+    // Local marketing assets (not in Git).
+    "social-posters/**",
   ]),
 ]);
 

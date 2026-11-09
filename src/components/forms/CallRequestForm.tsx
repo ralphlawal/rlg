@@ -47,9 +47,9 @@ export function CallRequestForm({ serverError }: { serverError?: string }) {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await res.json().catch(() => null)) as { status: string; reference?: string; errors?: FieldErrors; code?: string } | null;
+      const data = (await res.json().catch(() => null)) as { status: string; reference?: string; errors?: FieldErrors; code?: string; confirmation?: boolean } | null;
       if (data?.status === "ok" && data.reference) {
-        router.push(`/start/received?ref=${encodeURIComponent(data.reference)}&kind=call`);
+        router.push(`/start/received?ref=${encodeURIComponent(data.reference)}&kind=call${data.confirmation ? "&c=1" : ""}`);
         return;
       }
       if (data?.status === "invalid" && data.errors) setErrors(data.errors);

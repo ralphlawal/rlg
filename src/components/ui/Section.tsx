@@ -22,7 +22,8 @@ export function Section({ id, number, label, titleId, children, className, flush
     >
       <div className="grid">
         <p className={`label ${styles.label}`}>
-          <b>{n}</b> / {label}
+          <b>{n}</b>
+          <span className={styles.tick} aria-hidden="true" /> {label}
         </p>
         <div className={styles.body}>{children}</div>
       </div>

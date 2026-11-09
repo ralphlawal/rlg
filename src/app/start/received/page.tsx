@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { cta } from "@/content/site";
 import styles from "../start.module.css";
+import own from "./received.module.css";
 
 export const metadata: Metadata = {
   title: "Received",
@@ -25,26 +26,34 @@ export default function ReceivedPage(props: PageProps<"/start/received">) {
 async function FromUrl({ searchParams }: { searchParams: PageProps<"/start/received">["searchParams"] }) {
   const p = await searchParams;
   const ref = typeof p.ref === "string" && /^RLG-\d{4}-[A-Z0-9]{4}$/.test(p.ref) ? p.ref : null;
-  return <Content reference={ref} kind={p.kind === "call" ? "call" : "project"} />;
+  return <Content reference={ref} kind={p.kind === "call" ? "call" : "project"} emailed={p.c === "1"} />;
 }
 
-function Content({ reference, kind }: { reference: string | null; kind: "project" | "call" }) {
+function Content({ reference, kind, emailed }: { reference: string | null; kind: "project" | "call"; emailed: boolean }) {
   return (
     <>
       <p className={`label ${styles.label}`}>
         <b>Received</b>
-        {reference ? <span className={styles.ref}> · {reference}</span> : null}
       </p>
       <div className={styles.head}>
-        <h1 id="received-title" className="display-l" tabIndex={-1}>
-          {kind === "call" ? "Thanks. We’ll be in touch to agree a time." : "Thank you. We have your enquiry."}
-        </h1>
         {reference ? (
-          <p className="lead">
-            Your reference is <strong className={styles.ref}>{reference}</strong>. Quote it if you write to us about this
-            {kind === "call" ? " call" : " enquiry"}.
+          <p className={own.stamp} aria-label={`Received. Reference ${reference}`}>
+            <span className={own.stampTop}>Received</span>
+            <span className={own.stampRef}>{reference}</span>
           </p>
         ) : null}
+        <h1 id="received-title" className="display-l" tabIndex={-1}>
+          {kind === "call" ? "Thanks. We’ll be in touch to agree a time." : "Thank you. Your project is on our desk."}
+        </h1>
+        <p className="lead">
+          {emailed ? "A confirmation is on its way to your inbox. " : ""}
+          {reference ? (
+            <>
+              Your reference is <strong className={styles.ref}>{reference}</strong>. Quote it if you write to us about this
+              {kind === "call" ? " call" : " enquiry"}.
+            </>
+          ) : null}
+        </p>
         <ol className={styles.steps}>
           {kind === "call" ? (
             <>

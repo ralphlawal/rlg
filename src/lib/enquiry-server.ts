@@ -1,5 +1,6 @@
 import "server-only";
 import type { FieldErrors } from "./enquiry";
+import { buildConfirmation, type ConfirmationKind } from "./confirmation-email";
 
 type SendResult =
   | { ok: true }
@@ -71,5 +72,50 @@ export async function verifyTurnstile(token: string, secret: string, ip?: string
     return data.success === true;
   } catch {
     return false;
+  }
+}
+
+/**
+ * Sends the visitor an instant confirmation from hello@ via Resend. Best effort: the enquiry has already
+ * been delivered, so a failure here is logged (without personal data) and never shown as an error.
+ * Skipped when RESEND_API_KEY isn't configured.
+ */
+export async function sendConfirmation(
+  to: string,
+  kind: ConfirmationKind,
+  name: string,
+  reference: string,
+  fetchImpl: typeof fetch = fetch,
+): Promise<"sent" | "skipped" | "failed"> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return "skipped";
+  const { subject, html, text } = buildConfirmation(kind, name, reference);
+  const from = process.env.CONFIRMATION_FROM || "Ralph Lawal Group <hello@ralphlawalgroup.com>";
+  try {
+    const res = await fetchImpl(process.env.RESEND_ENDPOINT || "https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+        "Idempotency-Key": `confirmation-${reference}`,
+      },
+      body: JSON.stringify({
+        from,
+        to: [to],
+        reply_to: "hello@ralphlawalgroup.com",
+        subject,
+        html,
+        text,
+        tags: [{ name: "type", value: kind === "call" ? "call_confirmation" : "enquiry_confirmation" }],
+      }),
+      signal: AbortSignal.timeout(6000),
+      cache: "no-store",
+    });
+    if (res.ok) return "sent";
+    console.error(`[enquiry] confirmation email not sent (HTTP ${res.status})`);
+    return "failed";
+  } catch {
+    console.error("[enquiry] confirmation email not sent (network or timeout)");
+    return "failed";
   }
 }

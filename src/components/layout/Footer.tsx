@@ -11,6 +11,7 @@ const groups = [
       { href: "/expertise", label: "Expertise" },
       { href: "/approach", label: "Approach" },
       { href: "/group", label: "Group" },
+      { href: "/insights", label: "Insights" },
     ],
   },
   {
@@ -40,6 +41,13 @@ export function Footer() {
         <div className={styles.brand}>
           <Logo variant="full" height={96} className={styles.logo} />
           <p>A founder-led technology studio based in {site.location}, working with clients internationally.</p>
+          <address className={styles.address}>
+            {site.name}
+            <br />
+            {site.address.locality}, {site.address.country}
+            <br />
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </address>
         </div>
         {groups.map((group) => (
           <div key={group.title} className={styles.col}>

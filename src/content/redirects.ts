@@ -45,8 +45,8 @@ export const gone = [
   "/blog/post9-afrobeats-global-2026",
 ];
 
-/** "/blog" goes to Insights, which isn't live yet; until it is, send it to Expertise instead. */
-export const INSIGHTS_LIVE = false;
+/** "/blog" goes to Insights (live since 11 November 2026). */
+export const INSIGHTS_LIVE = true;
 
 export function redirectEntries() {
   const entries: { source: string; destination: string }[] = [];

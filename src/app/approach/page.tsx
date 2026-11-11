@@ -46,7 +46,39 @@ export default function ApproachPage() {
         </Block>
       ))}
 
-      <Block n="05" title="Technical consulting and modernisation" id="consulting">
+      <Block n="05" title="Ways to work with us" id="engagement">
+        <div className={`${styles.cols} ${styles.cols3}`}>
+          <div>
+            <h3>A defined project</h3>
+            <p>
+              A clear scope, agreed deliverables and a fixed quote. Best when you know what you need: a new website, an
+              integration, a specific feature.
+            </p>
+          </div>
+          <div>
+            <h3>A phased build</h3>
+            <p>
+              A first release, then further phases planned around what real users teach us. Best for new products, where
+              the right version two only becomes clear after version one.
+            </p>
+          </div>
+          <div>
+            <h3>Ongoing support</h3>
+            <p>
+              A monthly arrangement for maintenance, security updates, improvements and advice. Best once a product is live
+              and needs looking after.
+            </p>
+          </div>
+        </div>
+        <div className={styles.prose} style={{ marginTop: 32 }}>
+          <p>
+            Every engagement is agreed in writing: scope, price, timing, ownership, licensing and handover. Not sure which
+            fits? That’s exactly what the free discovery call is for.
+          </p>
+        </div>
+      </Block>
+
+      <Block n="06" title="Technical consulting and modernisation" id="consulting">
         <div className={styles.prose}>
           <p>
             Sometimes you need judgement more than code: a review of an architecture before you commit to it, a plan for
@@ -59,7 +91,7 @@ export default function ApproachPage() {
         </div>
       </Block>
 
-      <Block n="06" title="What we ask of you" id="ask">
+      <Block n="07" title="What we ask of you" id="ask">
         <div className={styles.prose}>
           <p>
             A named decision-maker, honest feedback on each preview, and access to the people who’ll use the product.
@@ -68,7 +100,7 @@ export default function ApproachPage() {
         </div>
       </Block>
 
-      <Block n="07" title="What you can expect from us" id="expect">
+      <Block n="08" title="What you can expect from us" id="expect">
         <ul className={styles.list}>
           <li>Straight answers, including “you don’t need this”.</li>
           <li>Written estimates, with the assumptions stated.</li>

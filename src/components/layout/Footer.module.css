@@ -36,3 +36,6 @@
   letter-spacing: 0.04em;
   color: var(--fg-3);
 }
+
+.address { margin-top: 16px; font-style: normal; color: var(--fg-2); line-height: 1.6; }
+.address a { color: var(--fg); }

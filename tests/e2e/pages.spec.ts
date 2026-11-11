@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 const PAGES = [
   "/", "/expertise", "/expertise/mobile-apps", "/expertise/web",
   "/expertise/ai-automation", "/expertise/custom-software", "/expertise/backend-cloud", "/expertise/product-design",
-  "/approach", "/group", "/start", "/start/call", "/start/sketch", "/start/received?ref=RLG-2611-AB12&kind=project",
+  "/approach", "/group", "/insights", "/insights/native-cross-platform-or-web", "/insights/keeping-customer-data-apart", "/start", "/start/call", "/start/sketch", "/start/received?ref=RLG-2611-AB12&kind=project",
   "/privacy", "/cookies", "/terms", "/colophon", "/this-page-does-not-exist",
 ];
 

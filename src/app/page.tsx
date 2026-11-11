@@ -8,6 +8,7 @@ import { SketchTeaser } from "@/components/sketch/SketchTeaser";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { MIN_CLIENTS_TO_SHOW, publishableClients } from "@/content/clients";
 import { capabilities, situations, stages, whatWeDo } from "@/content/home";
+import { INSIGHTS_PUBLIC, articles, readingMinutes } from "@/content/insights";
 import { cta, site } from "@/content/site";
 import styles from "@/components/home/home.module.css";
 
@@ -41,7 +42,7 @@ export default function Home() {
             description: site.description,
             founder: { "@type": "Person", name: site.founder },
             areaServed: [{ "@type": "Country", name: "Ireland" }, "Worldwide"],
-            location: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: "Dublin", addressCountry: "IE" } },
+            address: { "@type": "PostalAddress", addressLocality: site.address.locality, addressCountry: site.address.countryCode },
             sameAs: [site.social.x.url],
           },
           { "@context": "https://schema.org", "@type": "WebSite", name: site.name, url: site.url, publisher: { "@id": `${site.url}/#organization` } },
@@ -159,6 +160,35 @@ export default function Home() {
         </p>
         <SketchTeaser />
       </Section>
+
+      {INSIGHTS_PUBLIC ? (
+        <Section number={next()} label="Insights" titleId="insights-title" id="insights">
+          <h2 id="insights-title" className="display-m reveal">
+            Notes from the work.
+          </h2>
+          <p className="lead reveal" style={{ marginTop: 24 }}>
+            Practical writing for people planning a digital product.
+          </p>
+          <IndexList
+            label="Latest insights"
+            rows={[...articles]
+              .sort((a, b) => b.published.localeCompare(a.published))
+              .slice(0, 3)
+              .map((a, i) => ({
+                key: a.slug,
+                num: String(i + 1).padStart(2, "0"),
+                title: a.title,
+                to: `${a.topic} · ${readingMinutes(a)} min`,
+                href: `/insights/${a.slug}`,
+              }))}
+          />
+          <p className={styles.after}>
+            <ButtonLink href="/insights" variant="text" arrow>
+              All insights
+            </ButtonLink>
+          </p>
+        </Section>
+      ) : null}
 
       <Section number={next()} label="Begin" titleId="begin-title" id="begin">
         <h2 id="begin-title" className={`${styles.beginTitle} reveal`}>

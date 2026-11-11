@@ -1,14 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { EXPERTISE_SLUGS } from "./content/slugs";
+import { EXPERTISE_SLUGS, INSIGHT_SLUGS } from "./content/slugs";
 
 /**
  * Runs only on the paths in the matcher (a literal list), never on other requests.
- * 1. Unknown /expertise/* slugs → the real 404 page with a 404 status (prerendered
+ * 1. Unknown /expertise/* and /insights/* slugs → the real 404 page with a 404 status (prerendered
  *    dynamic routes would otherwise stream a 200 shell).
  * 2. Retired pages from the old site → 410 Gone. Kept in sync with `gone` in src/content/redirects.ts
  *    by tests/unit/redirects.test.ts.
  */
-const known: Record<string, readonly string[]> = { expertise: EXPERTISE_SLUGS };
+const known: Record<string, readonly string[]> = { expertise: EXPERTISE_SLUGS, insights: INSIGHT_SLUGS };
 
 export function proxy(request: NextRequest) {
   const [, section, slug, extra] = request.nextUrl.pathname.split("/");
@@ -26,6 +26,7 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     "/expertise/:slug/:rest*",
+    "/insights/:slug/:rest*",
     "/services/marketing", "/services/marketing.html",
     "/services/media", "/services/media.html",
     "/services/education", "/services/education.html",

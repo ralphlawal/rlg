@@ -45,6 +45,9 @@ export default async function StartPage(props: PageProps<"/start">) {
           <p style={{ marginTop: 16 }}>
             Prefer to write directly? <a href={`mailto:${site.email}`}>{site.email}</a>
           </p>
+          <address style={{ fontStyle: "normal", marginTop: 8 }}>
+            {site.name}, {site.address.locality}, {site.address.country}
+          </address>
         </aside>
       </div>
     </section>

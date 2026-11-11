@@ -3,6 +3,7 @@ import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/goo
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { RevealObserver } from "@/components/layout/RevealObserver";
+import { Analytics } from "@vercel/analytics/next";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -84,6 +85,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </main>
         <Footer />
         <RevealObserver />
+        {/* Cookieless visit counts (Vercel Web Analytics); only active on the Vercel deployment. */}
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );

@@ -9,6 +9,8 @@ export const site = {
     "A founder-led technology studio in Dublin, Ireland, designing and building mobile apps, web platforms, AI systems and custom software for businesses in Ireland and abroad.",
   email: "hello@ralphlawalgroup.com",
   location: "Dublin, Ireland",
+  /** Shown in the footer, contact pages, legal pages and structured data. */
+  address: { locality: "Dublin", country: "Ireland", countryCode: "IE" },
   founder: "Ralph Lawal",
   /** Sole trader: the brand is a trading name. Never add Ltd, company numbers, VAT or a registered office. */
   legalLine: "Ralph Lawal Group is the trading name of Ralph Lawal.",
@@ -19,11 +21,12 @@ export const site = {
   copyrightYear: 2026,
 } as const;
 
-/** Primary navigation. Insights joins once two articles are published; Work returns when products are public. */
+/** Primary navigation. Work returns when products are public. */
 export const primaryNav = [
   { href: "/expertise", label: "Expertise" },
   { href: "/approach", label: "Approach" },
   { href: "/group", label: "Group" },
+  { href: "/insights", label: "Insights" },
 ] as const;
 
 export const cta = {

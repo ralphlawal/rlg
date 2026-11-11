@@ -34,3 +34,11 @@ describe("Proxy slug list", () => {
     expect([...EXPERTISE_SLUGS].sort()).toEqual(services.map((s) => s.slug).sort());
   });
 });
+
+import { INSIGHT_SLUGS } from "@/content/slugs";
+describe("Insight slug list", () => {
+  it("matches the articles", async () => {
+    const { articles } = await import("@/content/insights");
+    expect([...INSIGHT_SLUGS].sort()).toEqual(articles.map((a) => a.slug).sort());
+  });
+});

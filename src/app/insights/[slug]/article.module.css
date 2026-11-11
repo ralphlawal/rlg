@@ -46,3 +46,4 @@
 .more a:hover, .more a:focus-visible { background: var(--fg); color: var(--bg); }
 .more a:hover :global(.label), .more a:focus-visible :global(.label) { color: var(--bg); }
 .moreTitle { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; }
+.topicGlyph { margin-bottom: 20px; }

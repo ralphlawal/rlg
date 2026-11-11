@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import founderPhoto from "@/assets/people/ralph-lawal.jpg";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageIntro } from "@/components/ui/PageIntro";
 import { Block } from "@/components/ui/Block";
 import { ButtonLink } from "@/components/ui/ButtonLink";
@@ -23,6 +26,18 @@ const beliefs = [
 export default function GroupPage() {
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: site.founder,
+          jobTitle: "Founder",
+          image: `${site.url}${founderPhoto.src}`,
+          worksFor: { "@type": "Organization", name: site.name, url: site.url },
+          address: { "@type": "PostalAddress", addressLocality: site.address.locality, addressCountry: site.address.countryCode },
+          sameAs: [site.social.x.url],
+        }}
+      />
       <PageIntro
         label="The Group"
         title="A founder-led technology studio, built on doing the work properly."
@@ -42,11 +57,17 @@ export default function GroupPage() {
 
       <Block n="02" title="From the founder" id="founder">
         <div className={own.founder}>
-          {/* Typographic portrait: complete without a photograph; a real photo can replace it later. */}
-          <div className={own.portrait} aria-hidden="true">
-            <span className={own.initials}>RL</span>
-            <span className="label">Founder</span>
-          </div>
+          <figure className={own.photo}>
+            <div className={own.frame}>
+              <Image
+                src={founderPhoto}
+                alt="Ralph Lawal, founder of Ralph Lawal Group, sitting on a wooden picnic table in a pale blue shirt with a grey jumper over his shoulders."
+                sizes="(min-width: 900px) 320px, (min-width: 600px) 360px, calc(100vw - 40px)"
+                placeholder="blur"
+              />
+            </div>
+            <figcaption className="label">Fig. 1 · The founder</figcaption>
+          </figure>
           <figure className={own.letter}>
             <blockquote>
               <p>

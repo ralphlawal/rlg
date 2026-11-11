@@ -4,6 +4,7 @@ import { PageIntro } from "@/components/ui/PageIntro";
 import { Block } from "@/components/ui/Block";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { SheetFigure } from "@/components/drawings/Figures";
 import { getService, services } from "@/content/expertise";
 import { cta, site } from "@/content/site";
 import styles from "@/components/ui/pages.module.css";
@@ -60,6 +61,7 @@ export default async function ServicePage(props: PageProps<"/expertise/[slug]">)
         title={s.title}
         lead={s.intro}
         breadcrumbs={[{ label: "Expertise", href: "/expertise" }, { label: s.name }]}
+        figure={<SheetFigure name={s.slug} n={String(services.indexOf(s) + 1).padStart(2, "0")} label={s.name.split(/[ ,]/)[0]} />}
       >
         <div className={styles.actions}>
           <ButtonLink href={quoteHref} arrow>

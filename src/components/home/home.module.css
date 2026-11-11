@@ -29,6 +29,12 @@
 
 .heroCopy { grid-column: 1 / -1; margin-top: 40px; }
 @media (min-width: 1024px) { .heroCopy { grid-column: 3 / 9; margin-top: 56px; } }
+/* Fig. 0 sits beside the introduction on wide screens; on phones the words come first and alone. */
+.heroFigure { display: none; }
+@media (min-width: 1024px) {
+  .heroCopy { grid-row: 2; }
+  .heroFigure { display: block; grid-column: 9 / -1; grid-row: 2; justify-self: end; align-self: start; max-width: 300px; margin-top: 24px; }
+}
 .heroActions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; margin-top: 32px; }
 
 .notes {
@@ -63,6 +69,10 @@
 .services { list-style: none; margin-top: 56px; display: grid; }
 @media (min-width: 1024px) { .services { grid-template-columns: 1fr 1fr; column-gap: var(--gutter); } }
 .services li { padding: 28px 0; border-top: 1px solid var(--line); }
+.withIcons li { display: grid; grid-template-columns: 48px 1fr; column-gap: 20px; align-items: start; align-content: start; }
+.withIcons li > :not(svg) { grid-column: 2; }
+.withIcons svg { grid-row: 1 / span 2; margin-top: 2px; }
+.stageIcon { margin-bottom: 14px; }
 .services h3 { font-size: 1.25rem; letter-spacing: -0.01em; margin-bottom: 8px; }
 .services h3 a { text-decoration: none; }
 .services h3 a:hover { text-decoration: underline; }

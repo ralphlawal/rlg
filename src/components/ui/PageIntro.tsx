@@ -8,10 +8,12 @@ type Props = {
   titleId?: string;
   breadcrumbs?: { label: string; href?: string }[];
   children?: React.ReactNode;
+  /** A drawing beside the title on wide screens, after the text on phones. */
+  figure?: React.ReactNode;
 };
 
 /** The opening of every inner page: mono label in the annotation column, large title, lead. */
-export function PageIntro({ label, title, lead, titleId = "page-title", breadcrumbs, children }: Props) {
+export function PageIntro({ label, title, lead, titleId = "page-title", breadcrumbs, children, figure }: Props) {
   return (
     <header className={`wrap ${styles.intro}`}>
       {breadcrumbs ? <Breadcrumbs items={breadcrumbs} /> : null}
@@ -19,13 +21,14 @@ export function PageIntro({ label, title, lead, titleId = "page-title", breadcru
         <p className={`label ${styles.introLabel}`}>
           <b>{label}</b>
         </p>
-        <div className={styles.introBody}>
+        <div className={`${styles.introBody} ${figure ? styles.introNarrow : ""}`}>
           <h1 id={titleId} className="display-l">
             {title}
           </h1>
           {lead ? <p className="lead">{lead}</p> : null}
           {children}
         </div>
+        {figure ? <div className={styles.introFigure}>{figure}</div> : null}
       </div>
     </header>
   );

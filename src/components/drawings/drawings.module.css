@@ -1,0 +1,47 @@
+.svg {
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  --sw: 1.4;
+  stroke-width: var(--sw);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.glyph { --sw: 1.6; flex: none; }
+.fine { stroke: var(--fg-3); stroke-width: calc(var(--sw) * 0.62); }
+.dash { stroke: var(--fg-3); stroke-width: calc(var(--sw) * 0.7); stroke-dasharray: 2.5 3; }
+.fill { fill: currentColor; stroke: none; }
+.svg :global(.t) {
+  fill: var(--fg-3);
+  stroke: none;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.svg :global(.t-ink) { fill: var(--fg); }
+
+/*
+ * Ink draws in stroke by stroke. Without motion (or without CSS animation) the drawing is simply complete.
+ * Inside a .reveal block the ink waits, paused on its first frame, until the block scrolls into view.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .draw .ink {
+    stroke-dasharray: 1 1.02;
+    animation: ink 700ms var(--ease-out) backwards;
+    animation-delay: calc(var(--i, 0) * 35ms + var(--ink-delay, 150ms));
+  }
+  .draw .dash,
+  .draw .fill,
+  .draw :global(.t) {
+    animation: ink-fade 500ms var(--ease-out) backwards;
+    animation-delay: calc(var(--i, 0) * 35ms + var(--ink-delay, 150ms) + 200ms);
+  }
+  :global(.js .reveal:not(.in)) .draw path,
+  :global(.js .reveal:not(.in)) .draw :global(.t) { animation-play-state: paused; }
+}
+@keyframes ink {
+  from { stroke-dashoffset: 1; opacity: 0; }
+  8% { opacity: 1; }
+}
+@keyframes ink-fade { from { opacity: 0; } }

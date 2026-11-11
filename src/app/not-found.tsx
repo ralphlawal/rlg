@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { cta } from "@/content/site";
+import { LostSheetFigure } from "@/components/drawings/Figures";
 import styles from "./not-found.module.css";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function NotFound() {
           <span>Rev. —</span>
           <span>Drawn by: nobody yet</span>
         </div>
+        <LostSheetFigure />
         <h1 id="nf-title" className="display-l">
           This page hasn’t been drawn.
         </h1>

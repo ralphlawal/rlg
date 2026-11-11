@@ -6,6 +6,8 @@ import { Section } from "@/components/ui/Section";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { SketchTeaser } from "@/components/sketch/SketchTeaser";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { Glyph } from "@/components/drawings/Drawing";
+import { glyphKey, type GlyphName } from "@/components/drawings/glyphs";
 import { MIN_CLIENTS_TO_SHOW, publishableClients } from "@/content/clients";
 import { capabilities, situations, stages, whatWeDo } from "@/content/home";
 import { INSIGHTS_PUBLIC, articles, readingMinutes } from "@/content/insights";
@@ -54,9 +56,10 @@ export default function Home() {
         <h2 id="what-title" className="display-m reveal">
           One team from the first sketch to the version people rely on.
         </h2>
-        <ul className={`${styles.services} stagger`}>
+        <ul className={`${styles.services} ${styles.withIcons} stagger`}>
           {whatWeDo.map((s) => (
             <li key={s.title} className="reveal">
+              <Glyph name={s.href.split("/").pop() as GlyphName} />
               <h3>
                 <Link href={s.href}>{s.title}</Link>
               </h3>
@@ -78,9 +81,10 @@ export default function Home() {
         <p className="lead reveal" style={{ marginTop: 24 }}>
           Every project includes the work that decides whether a product can be trusted, whatever its size.
         </p>
-        <ul className={`${styles.services} stagger`}>
+        <ul className={`${styles.services} ${styles.withIcons} stagger`}>
           {capabilities.map((c) => (
             <li key={c.title} className="reveal">
+              <Glyph name={glyphKey(c.title)} />
               <h3>{c.title}</h3>
               <p>{c.text}</p>
             </li>
@@ -133,6 +137,7 @@ export default function Home() {
         <ol className={`${styles.stages} stagger`}>
           {stages.map((s, i) => (
             <li key={s.name} className="reveal">
+              <Glyph name={glyphKey(s.name)} size={40} className={styles.stageIcon} />
               <span className="label">{String(i + 1).padStart(2, "0")}</span>
               <h3>{s.name}</h3>
               <p>{s.text}</p>

@@ -1,6 +1,7 @@
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { heroNotes } from "@/content/home";
 import { cta } from "@/content/site";
+import { HeroFigure } from "@/components/drawings/Figures";
 import styles from "./home.module.css";
 
 /**
@@ -39,6 +40,7 @@ export function Hero() {
             </ButtonLink>
           </div>
         </div>
+        <HeroFigure className={styles.heroFigure} />
         <h2 id="hero-notes-title" className="sr-only">
           Footnotes
         </h2>

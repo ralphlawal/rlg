@@ -18,6 +18,10 @@ for (const path of PAGES) {
       const res = await page.goto(path, { waitUntil: "networkidle" });
       expect(res?.status()).toBe(path.includes("does-not-exist") ? 404 : 200);
       await page.evaluate(() => document.querySelectorAll(".reveal").forEach((e) => e.classList.add("in")));
+      // Let fades and ink finish before measuring contrast (scroll-linked animations never "finish", so skip them).
+      await page.evaluate(() =>
+        Promise.all(document.getAnimations().filter((a) => a.timeline === document.timeline).map((a) => a.finished.catch(() => null))),
+      );
 
       const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
       const summary = axe.violations.map((v) => `${v.id} (${v.impact}): ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(" | ")}`);

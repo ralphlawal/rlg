@@ -72,7 +72,9 @@ export function Footer() {
             © {site.copyrightYear} {site.name}. {site.legalLine}
           </p>
           <BlueprintToggle />
-          <p className={styles.whisper}>Drawn in Ireland. Built to be used.</p>
+          <p className={styles.whisper}>
+            <span title="Dublin">53.3498° N, 6.2603° W</span> · Drawn in Ireland. Built to be used.
+          </p>
         </div>
       </div>
     </footer>

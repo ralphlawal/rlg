@@ -3,6 +3,8 @@ import { PageIntro } from "@/components/ui/PageIntro";
 import { Block } from "@/components/ui/Block";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { stages } from "@/content/home";
+import { Glyph } from "@/components/drawings/Drawing";
+import { glyphKey } from "@/components/drawings/glyphs";
 import { cta } from "@/content/site";
 import styles from "@/components/ui/pages.module.css";
 
@@ -35,6 +37,7 @@ export default function ApproachPage() {
 
       {stages.map((s, i) => (
         <Block key={s.name} n={String(i + 1).padStart(2, "0")} title={s.name} id={s.name.toLowerCase()}>
+          <div className={styles.withFigure}>
           <div className={styles.prose}>
             <p>{detail[s.name]}</p>
             <p>
@@ -42,6 +45,10 @@ export default function ApproachPage() {
               <br />
               <span style={{ color: "var(--fg)" }}>{s.get}</span>
             </p>
+          </div>
+          <div className="reveal">
+            <Glyph name={glyphKey(s.name)} size={88} />
+          </div>
           </div>
         </Block>
       ))}

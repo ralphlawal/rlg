@@ -1,0 +1,41 @@
+.hero { margin: 0; width: 100%; max-width: 320px; color: var(--fg); }
+.hero svg { width: 100%; height: auto; }
+
+.lost { width: 100%; max-width: 240px; color: var(--fg); }
+.lost svg { width: 100%; height: auto; --ink-delay: 300ms; }
+
+/* A small drawing sheet: thin frame, corner registration marks, mono caption. */
+.sheet {
+  position: relative;
+  margin: 0;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 28px 20px 14px;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  background:
+    linear-gradient(var(--fg), var(--fg)) top left / 10px 1px,
+    linear-gradient(var(--fg), var(--fg)) top left / 1px 10px,
+    linear-gradient(var(--fg), var(--fg)) top right / 10px 1px,
+    linear-gradient(var(--fg), var(--fg)) top right / 1px 10px,
+    linear-gradient(var(--fg), var(--fg)) bottom left / 10px 1px,
+    linear-gradient(var(--fg), var(--fg)) bottom left / 1px 10px,
+    linear-gradient(var(--fg), var(--fg)) bottom right / 10px 1px,
+    linear-gradient(var(--fg), var(--fg)) bottom right / 1px 10px;
+  background-repeat: no-repeat;
+}
+.sheet .sheetGlyph { width: 100%; max-width: 150px; height: auto; --sw: 0.7; }
+.sheet figcaption {
+  justify-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}

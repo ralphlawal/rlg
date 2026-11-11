@@ -58,6 +58,8 @@ All words and facts live in `src/content/`:
 
 Brand marks in `src/assets/brand/` are the official files, only resized and trimmed of padding. Never redraw them.
 
+Drawings and icons are generated in code: `src/lib/sketch.ts` is a small seeded "pencil" (lines bow slightly and overshoot their corners, the same on every render), and `src/components/drawings/glyphs.ts` holds the icon set. To add an icon, add an entry to `glyphs.ts`; a test checks that every service, capability and stage has one. The founder photo is `src/assets/people/ralph-lawal.jpg` (1200 × 1500, 4:5, metadata stripped).
+
 Adding a client: collect name, website, services delivered, a factual summary and written permission; add the entry to `clients.ts` with its permission evidence; run the tests.
 
 The Work section (product case studies) is hidden for now. Its code is kept locally, outside this repository, with restore instructions.

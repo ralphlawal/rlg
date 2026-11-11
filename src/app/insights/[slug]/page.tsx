@@ -4,9 +4,18 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { AUTHOR, articles, formatDate, getArticle, readingMinutes, type ArticleBlock } from "@/content/insights";
+import { AUTHOR, articles, formatDate, getArticle, readingMinutes, type Article, type ArticleBlock } from "@/content/insights";
 import { cta, site } from "@/content/site";
+import { Glyph } from "@/components/drawings/Drawing";
+import type { GlyphName } from "@/components/drawings/glyphs";
 import styles from "./article.module.css";
+
+const TOPIC_GLYPH: Record<Article["topic"], GlyphName> = {
+  Mobile: "mobile-apps",
+  Product: "product-design",
+  "AI and automation": "ai-automation",
+  "Security and privacy": "security-and-privacy",
+};
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
@@ -68,6 +77,7 @@ export default async function ArticlePage(props: PageProps<"/insights/[slug]">) 
       <header className={`wrap ${styles.head}`}>
         <Breadcrumbs items={[{ label: "Insights", href: "/insights" }, { label: a.topic }]} />
         <div className={styles.measure}>
+          <Glyph name={TOPIC_GLYPH[a.topic]} size={48} className={styles.topicGlyph} />
           <p className="label">
             <b>{a.topic}</b> · <time dateTime={a.published}>{formatDate(a.published)}</time> · {readingMinutes(a)} min read
           </p>
